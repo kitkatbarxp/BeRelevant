@@ -1,0 +1,69 @@
+<!-- <ScrollView
+   	xmlns:android="http://schemas.android.com/apk/res/android"
+   	xmlns:tools="http://schemas.android.com/tools"  
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" > -->
+
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+   		xmlns:tools="http://schemas.android.com/tools" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	    
+	    <FrameLayout
+	        android:id="@+id/am_framelayout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+	
+	<!--    <TextView
+	        android:id="@+id/am_location"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="" />
+	    
+	    <TextView
+	        android:id="@+id/am_connectivity"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="" />
+	    
+	    <ProgressBar
+			android:id="@+id/am_address_progress"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:indeterminate="true"
+			android:visibility="gone" />
+	    
+	    <TextView
+	        android:id="@+id/am_articles"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="" />
+	    
+	    <WebView 
+		    android:id="@+id/webview"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"	/>
+	    
+	    <TextView
+	        android:id="@+id/am_tweets"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Twitter Feed" />
+	    
+	    <FrameLayout 
+	        android:id="@+id/am_fragcontainer1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="TEST"/> -->
+	
+	</LinearLayout>
+
+<!-- </ScrollView> -->

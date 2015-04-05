@@ -50,9 +50,8 @@ public class TwitterFeedFragment extends Fragment{
      
     // Internet Connection detector
     private ConnectionDetector cd;
-     
-    // Target location
-    private String mCity;
+    
+    String city = "";
     
     private ListView mList;
     private TweetItemAdapter mAdapter;
@@ -66,6 +65,8 @@ public class TwitterFeedFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		mCity checkOut = new mCity();
+		city = checkOut.getCity();
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 		
@@ -97,11 +98,11 @@ public class TwitterFeedFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
 		
-		mCity = ((MainActivity) getActivity()).getCurrentCity();
 		
+		city.replaceAll("\\s+", "");
 		rootView = inflater.inflate(R.layout.fragment_twitter_feed, container, false);
 		TextView location = (TextView) rootView.findViewById(R.id.ftf_location);
-		location.setText("What are people tweeting about " + mCity + "?");
+		location.setText("I knew you were a nosy one! Here's " + city + "'s twitter feed!");
 		
 		return rootView;
 	}
@@ -149,7 +150,7 @@ public class TwitterFeedFragment extends Fragment{
 			try {
 				ArrayList<TweetItem> currentItems = new ArrayList<TweetItem>();
 				
-	            Query query = new Query(mCity);
+	            Query query = new Query(city);
 	            query.count(15);
 	            QueryResult result;
 	            int count = 0;
@@ -158,7 +159,7 @@ public class TwitterFeedFragment extends Fragment{
 	                List<twitter4j.Status> tweets = result.getTweets();
 	                
 	                for (twitter4j.Status tweet : tweets) {
-	                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+	               
 	                    currentItems.add(new TweetItem("@" + tweet.getUser().getScreenName(),
 	                    		tweet.getText()));
 	                    //usernames.add("@" + tweet.getUser().getScreenName());
@@ -186,6 +187,7 @@ public class TwitterFeedFragment extends Fragment{
 				content.add(item.getTweet());
 			}
 			mAdapter.notifyDataSetChanged();
+			
 		}
 		
 	}

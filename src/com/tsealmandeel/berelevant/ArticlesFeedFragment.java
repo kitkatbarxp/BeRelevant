@@ -40,17 +40,20 @@ public class ArticlesFeedFragment extends Fragment {
 	public static String CITY = "city";
 	
 	private View rootView;
-	private String mCity;
+	private String city;
 	private String cityDisplayName;
 	private String URL;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mCity toCheckout = new mCity();
+		city = toCheckout.getCity();
+		cityDisplayName = city;
+		//mCity = ((MainActivity) getActivity()).getCurrentCityForSearch("Articles");
+		city = city.replaceAll(" ", "");
+		URL = "https://news.google.com/news/feeds?q=" + city + "&output=rss";
 		
-		mCity = ((MainActivity) getActivity()).getCurrentCityForSearch("Articles");
-		cityDisplayName = ((MainActivity) getActivity()).getCurrentCity();
-		URL = "https://news.google.com/news/feeds?q=" + mCity + "&output=rss";
 	}
 
 	@Override
@@ -59,7 +62,7 @@ public class ArticlesFeedFragment extends Fragment {
 		
 		rootView = inflater.inflate(R.layout.fragment_article_feed, container, false);
 		TextView location = (TextView) rootView.findViewById(R.id.faf_location);
-		location.setText("What's happening at " + cityDisplayName + "?");
+		location.setText("What's happening in " + cityDisplayName + "? Who really cares!?!");
 		
 		return rootView;
 	}
@@ -67,7 +70,6 @@ public class ArticlesFeedFragment extends Fragment {
 	@Override
 	public void onStart(){
 		super.onStart();
-		
 		new DownloadXMLTask().execute(URL);
 	}
 	
@@ -79,7 +81,7 @@ public class ArticlesFeedFragment extends Fragment {
 	         try {
 	        	 return loadXmlFromNetwork(urls[0]);
 	         } catch (IOException e) {
-	             return "Unable to retrieve web page. URL may be invalid.";
+	             return "Unable to retrieve web page. URL may be invalid.\n Here's the URL: " + URL;
 	         } catch (XmlPullParserException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -13,7 +13,9 @@ import java.util.Locale;
 
 import twitter4j.GeoLocation;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Address;
@@ -27,6 +29,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.berelevant.R;
@@ -57,42 +60,62 @@ GooglePlayServicesClient.OnConnectionFailedListener{
     private String currentCityAndState;
     private String currentCity;
     private GeoLocation geoloc;
-    
+    private int key = 0;
+
     
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_main);
-    	
     	mLocationClient = new LocationClient(this, this, this); 
-    	
     }
+    
+	
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.main, menu);
+    	menu.clear();
+    	menu.add("Set Location");
     	return true;
+    }
+    
+     public void endActivity(){
+    	 this.recreate();
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch (item.getItemId()) {
-    	// action with ID action_refresh was selected
-    	case R.id.action_refresh:
-    		Toast.makeText(this, "Refresh selected", Toast.LENGTH_SHORT)
-            	.show();
-    		break;
-    	// action with ID action_settings was selected
-    	case R.id.action_settings:
-    		Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
-            	.show();
-    		break;
-    	default:
-    		break;
-    	}
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
+    	alert.setTitle("Bored of Home?");
+    	alert.setMessage("Enter a location to look up!");
+
+    	// Set an EditText view to get user input 
+    	final EditText input = new EditText(this);
+    	alert.setView(input);
+
+    	alert.setPositiveButton("Omg yes.", new DialogInterface.OnClickListener() {
+    	public void onClick(DialogInterface dialog, int id) {
+    	  mCity nextLocation = new mCity();
+    	  nextLocation.setCity(input.getText().toString());
+    	  key = 1;
+    	  System.out.println("Awww yisss");
+    	  endActivity();
+    	  //setupCore();
+    	  }
+    	});
+
+    	alert.setNegativeButton("Omg no.", new DialogInterface.OnClickListener() {
+    	  public void onClick(DialogInterface dialog, int id) {
+    		  System.out.println("Nope.");
+    	    // Canceled.
+    	  }
+    	});
+
+    	alert.show();
     	return true;
     } 
 
@@ -164,9 +187,9 @@ GooglePlayServicesClient.OnConnectionFailedListener{
     public void onConnected(Bundle dataBundle) {
              
 	    mLocation = mLocationClient.getLastLocation();
-	       
 	    AsyncTask<Location, Void, String> getAddress = new GetAddressTask(this);
 	    getAddress.execute(mLocation);    
+	    
 
     }
 
@@ -325,11 +348,15 @@ GooglePlayServicesClient.OnConnectionFailedListener{
      }
      
      public void setupCore() {
+    	 mCity firstOne = new mCity();
+    	 if( firstOne.getCity() == " "){
+    	 		firstOne.setCity(this.getCurrentCity());}
     	 if (getSupportFragmentManager().findFragmentByTag("core") == null) {
     		 CoreFragment corefrag = new CoreFragment();
         	 getSupportFragmentManager().beginTransaction()
         	 	.add(R.id.am_framelayout, corefrag, "core").commit();
     	 }
+    	 
      }
      
      public String getCurrentCity() {

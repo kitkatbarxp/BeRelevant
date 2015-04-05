@@ -19,6 +19,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         	return new ArticlesFeedFragment();
         case 1:
             return new TwitterFeedFragment();
+        case 2:
+        	return new GiphyFeedFragment();
+        case 3:
+        	return new InstaFeedFragment();
         }
  
         return null;
@@ -27,7 +31,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 2;
+        return 3;
     }
 
 }
+

@@ -7,10 +7,12 @@
 
 package com.tsealmandeel.berelevant;
 
-import com.example.berelevant.R;
+import java.io.InputStream;
+import java.net.URL;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -19,9 +21,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.berelevant.R;
+
 public class CoreFragment extends Fragment {
 		
-	private String mCity;
+	private String city;
 
 	View rootView;
 	ViewPager mViewPager;
@@ -31,9 +35,10 @@ public class CoreFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		
-		mCity = ((MainActivity) getActivity()).getCurrentCity();
+		mCity toCheckout = new mCity();
+		city = toCheckout.getCity();
 	}
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,8 +75,10 @@ public class CoreFragment extends Fragment {
 	    };
 
 	    // Add 2 tabs, specifying the tab's text and TabListener
-	    actionBar.addTab(actionBar.newTab().setText("ARTICLES").setTabListener(tabListener));
-	    actionBar.addTab(actionBar.newTab().setText("TWITTER FEED").setTabListener(tabListener));
+	    actionBar.addTab(actionBar.newTab().setText("BORING NEWS").setTabListener(tabListener));
+	    actionBar.addTab(actionBar.newTab().setText("GOSSIP GOSSIP").setTabListener(tabListener));
+	    actionBar.addTab(actionBar.newTab().setText("MOVING THINGS").setTabListener(tabListener));
+	    actionBar.addTab(actionBar.newTab().setText("~COMING SOON~").setTabListener(tabListener));
 	    
 	    mViewPager.setOnPageChangeListener(
             new ViewPager.SimpleOnPageChangeListener() {
